@@ -13,7 +13,7 @@ export default function SemicircleGraph() {
     // npx expo install react-native-gifted-charts expo-linear-gradient react-native-svg
 
     return (
-        <View style={{ alignItems: "center", marginTop: 50 }}>
+        <View style={{ alignItems: "center", marginTop: -20 }}>
             <PieChart
                 data={data}
                 radius={150}
