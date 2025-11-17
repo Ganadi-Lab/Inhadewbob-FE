@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Button, Text} from 'react-native';
+import {View, Button, Text, Image} from 'react-native';
 import Home from '../screens/Home';
 import MealLog from '../screens/MealLog';
 import MyPage from '../screens/MyPage';
@@ -22,7 +22,16 @@ function BottomTab({navigation}) {
                 name="Home"
                 component={Home}
                 options={{
-                    title: '홈',
+                    headerTitle: () => (
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Image
+                        source={require('../../assets/LOGO.png')}
+                        style={{ width: 100, height: 40 }}
+                        resizeMode="contain"
+                        />
+                    </View>
+                    ),
+                    headerTitleAlign: 'center', // 확실하게 중앙 정렬
                 }}
             />
             <Tab.Screen
