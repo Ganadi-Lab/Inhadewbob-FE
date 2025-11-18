@@ -1,14 +1,13 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Button, Text} from 'react-native';
-import Home from '../screens/Home';
+import {View, Button, Text, Image} from 'react-native';
+import HomePage from '../screens/HomePage';
 import MealLog from '../screens/MealLog';
 import MyPage from '../screens/MyPage';
 
 const Tab = createBottomTabNavigator();
 
 function BottomTab({navigation}) {
-    console.log(navigation);
 
     return (
         <Tab.Navigator
@@ -19,10 +18,19 @@ function BottomTab({navigation}) {
             }}
         >
             <Tab.Screen
-                name="Home"
-                component={Home}
+                name="HomePage"
+                component={HomePage}
                 options={{
-                    title: '홈',
+                    headerTitle: () => (
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Image
+                            source={require('../../assets/LOGO.png')}
+                            style={{ width: 100, height: 40 }}
+                            resizeMode="contain"
+                        />
+                    </View>
+                    ),
+                    headerTitleAlign: 'center',
                 }}
             />
             <Tab.Screen
