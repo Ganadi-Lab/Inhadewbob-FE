@@ -1,0 +1,30 @@
+import { StyleSheet, Text, View } from "react-native";
+
+
+export default function FoodItem({item}) {
+    return(
+        <View style={styles.outerContainer}>
+            <View style={styles.container}>
+                <Text>{item.store}</Text>
+                <Text>{item.menu}</Text>
+                <Text>₩ {item.price}</Text>
+                <Text>{item.category}</Text>
+            </View>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    outerContainer:{
+        width: "100%",
+        paddingVertical: 7,
+        paddingHorizontal: 15,
+    },
+    container: {
+        backgroundColor:"#F5F5F5",
+        borderRadius: 10,
+        padding: 10,
+        alignItems: "center",
+    }
+
+});
