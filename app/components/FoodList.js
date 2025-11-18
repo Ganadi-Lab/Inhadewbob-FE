@@ -1,0 +1,72 @@
+import { Button, Pressable, Text, View } from "react-native";
+import FoodItem from "./FoodItem";
+import { useEffect, useState } from "react";
+
+
+const mealBudget = [
+    { id: 1, store: "KFC", menu: "징거세트", price:"7900", category:"패스트푸드" },
+    { id: 2, store: "KFC", menu: "징거세트", price:"7900", category:"패스트푸드" },
+    { id: 3, store: "KFC", menu: "징거세트", price:"7900", category:"패스트푸드" },
+    { id: 4, store: "KFC", menu: "징거세트", price:"7900", category:"패스트푸드" },
+];
+
+const mealSave = [
+    { id: 5, store: "KFC", menu: "불고기 버거", price:"6600", category:"패스트푸드" },
+    { id: 6, store: "KFC", menu: "불고기 버거", price:"6600", category:"패스트푸드" },
+];
+
+const mealUse = [
+    { id: 7, store: "KFC", menu: "징거타워", price:"8600", category:"패스트푸드" },
+    { id: 8, store: "KFC", menu: "징거타워", price:"8600", category:"패스트푸드" },
+];
+
+export default function FoodList() {
+    const [recommendType, setRecommendType] = useState("예산");  // 예산, 알뜰, 든든
+
+    useEffect(() => {
+        console.log(recommendType);
+    }, [recommendType]);
+    return(
+        <View>
+            <View>
+                <Text>오늘의 추천 메뉴</Text>
+            </View>
+
+            <View>
+                <Pressable onPress={() => {setRecommendType('예산')}}>
+                    <Text>예산 메뉴</Text>
+                </Pressable>
+                <Pressable onPress={() => {setRecommendType('알뜰')}}>
+                    <Text>알뜰 메뉴</Text>
+                </Pressable>
+                <Pressable onPress={() => {setRecommendType('든든')}}>
+                    <Text>든든 메뉴</Text>
+                </Pressable>
+            </View>
+
+            <View>
+                {recommendType === "예산" && 
+                    (mealBudget.map((item) => {
+                        return (
+                            <FoodItem item={item} />
+                        );
+                    }))
+                }
+                {recommendType === "알뜰" && 
+                    (mealSave.map((item) => {
+                        return (
+                            <FoodItem item={item} />
+                        );
+                    }))
+                }
+                {recommendType === "든든" && 
+                    (mealUse.map((item) => {
+                        return (
+                            <FoodItem item={item} />
+                        );
+                    }))
+                }
+            </View>
+        </View>
+    );
+}
