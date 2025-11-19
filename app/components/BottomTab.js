@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Button, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import HomePage from '../screens/HomePage';
 import MealLog from '../screens/MealLog';
 import MyPage from '../screens/MyPage';

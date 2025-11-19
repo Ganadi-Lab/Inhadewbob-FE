@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Button, Text, View, Image, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './Home.js';
 import Roulette from './Roulette.js';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import moment from 'moment';
 
 import CalendarStrip from 'react-native-calendar-strip';
 
