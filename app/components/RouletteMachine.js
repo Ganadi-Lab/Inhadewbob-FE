@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions, Pressable, Animated } from 'react-native';
 import RouletteMachineMovingBall from './RouletteMachingMovingBall';
+import { RouletteColors } from '../constants/colors';
 
 
 const { width } = Dimensions.get("window");
@@ -84,21 +85,21 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		flex: 1,
 		padding: 24,
-		backgroundColor: "#F5F5F5",
+		backgroundColor: "white",
 		borderRadius: 32,
 		borderWidth: 1,
-		borderColor: "#4A84FFBF",
+		borderColor: RouletteColors.btnBorder,
 		justifyContent: 'space-between'
 	},
 	displayPanel: {
 		height: 150,
-		backgroundColor: "#4A84FFbb",
+		backgroundColor: RouletteColors.main,
 		borderRadius: 24,
 		marginBottom: 16,
 	},
 	panel: {
 		height: 50,
-		backgroundColor: "#DEE9FF",
+		backgroundColor: RouletteColors.sub,
 		borderRadius: 12,
 		marginBottom: 8,
 		flexDirection: "row",
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
 	moveBtn: {
 		width: 60,
 		height: 48,
-		backgroundColor: "#4A84FFBF",
+		backgroundColor: RouletteColors.btnBorder,
 		borderRadius: 12,
 		marginLeft: 12,
 		alignItems: "center",
@@ -132,10 +133,10 @@ const styles = StyleSheet.create({
 	roundBtn: {
 		width: 120,
 		height: 120,
-		backgroundColor: "#DEE9FF",
+		backgroundColor: RouletteColors.sub,
 		borderRadius: 60,
 		borderWidth: 1,
-		borderColor: "#4A84FFBF",
+		borderColor: RouletteColors.btnBorder,
 		alignItems: "center",
 		justifyContent: "center",
 		overflow: "visible", // 선 잘리는 것 방지
@@ -145,30 +146,30 @@ const styles = StyleSheet.create({
 		top:"50%-17", // 원 밖으로 튀어나옴
 		width: "115%",
 		height: 34,
-		backgroundColor: "#DEE9FF",
+		backgroundColor: RouletteColors.sub,
 		borderWidth: 1,
-		borderColor: "#4A84FFBF",
-		borderRadius: 2,
+		borderColor: RouletteColors.btnBorder,
+		borderRadius: 10,
 	},
 	rectBtn: {
 		width: 90,
 		height: 120,
-		backgroundColor: "#DEE9FF",
+		backgroundColor: RouletteColors.sub,
 		borderRadius: 16,
 		borderWidth: 1,
-		borderColor: "#4A84FFBF",
+		borderColor: RouletteColors.btnBorder,
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	rectBtn2: {
 		position: "absolute",
-		top:8,
+		bottom:8,
 		width: 75,
 		height: 75,
-		backgroundColor: "#F5F5F5",
+		backgroundColor: "white",
 		borderRadius: 16,
 		borderWidth: 1,
-		borderColor: "#4A84FFBF",
+		borderColor: RouletteColors.btnBorder,
 		alignItems: "center",
 		justifyContent: "center",
 	}
