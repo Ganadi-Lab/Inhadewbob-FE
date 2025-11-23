@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,7 +14,7 @@ LocaleConfig.defaultLocale = 'fr';
 const INITIAL_DATE = new Date();
 
 
-export default function calendarForm() {
+export default function calendarForm({ selectedDate, setSelectedDate }) {
     // react-native-calendars
 
     // 참고 자료
@@ -22,11 +22,10 @@ export default function calendarForm() {
     // https://github.com/wix/react-native-calendars/blob/master/example/src/screens/calendarScreen.tsx
 
 
-    const [selected, setSelected] = useState(INITIAL_DATE);
-
     const onDayPress = useCallback((day) => {
-        setSelected(day.dateString);
+        setSelectedDate(day.dateString);
     }, []);
+
 
 
     return (
@@ -39,10 +38,10 @@ export default function calendarForm() {
                     hideExtraDays={false}
                     onDayPress={onDayPress}
                     markedDates={{
-                        '2025-11-01': { dotColor: 'orange', selected: true, marked: true, selectedColor: 'blue' },
-                        '2025-11-02': { dotColor: 'orange', marked: true },
-                        '2025-11-03': { dotColor: 'orange', selected: true, marked: true },
-                        [selected]: {
+                        // '2025-11-01': { dotColor: 'orange', selected: true, marked: true, selectedColor: 'blue' },
+                        // '2025-11-02': { dotColor: 'orange', marked: true },
+                        // '2025-11-03': { dotColor: 'orange', selected: true, marked: true },
+                        [selectedDate]: {
                             selected: true,
                             disableTouchEvent: true,
                             selectedColor: 'orange',
