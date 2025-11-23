@@ -1,4 +1,4 @@
-import { Button, Text, View, Image, StyleSheet, Dimensions, Pressable } from 'react-native';
+import { Text, View, Image, StyleSheet, Dimensions, Pressable, TextComponent } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import SemicircleGraph from '../components/SemicircleGraph';
@@ -124,7 +124,7 @@ export default function Home({ navigation, setHomeType }) {
                         margin: "auto"
                     }}
                 >
-                    <Text>주차별 비교</Text>
+                    <Text style={{ fontWeight: "bold" }}>주차별 비교</Text>
 
                     {/* <BarGraph3 /> */}
                     {/* BarGraph3의 padding 조절이 안되어서 차라리 그냥 만드는게 베스트... */}
@@ -153,6 +153,140 @@ export default function Home({ navigation, setHomeType }) {
                         </View>
                     </View>
                 </View>
+
+                <View style={{ padding: 20 }}></View>
+
+
+                <View
+                    style={{
+                        width: "100%",
+                        borderColor: "black",
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        paddingVertical: 20,
+                        paddingHorizontal: 30,
+                        margin: "auto"
+                    }}
+                >
+                    <Text style={{ fontWeight: "bold" }}>이번 주 메뉴 소비 분석</Text>
+
+                    <View style={styles.container}>
+                        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
+                            <View style={{ width: "40%", flexDirection: "row", alignItems: "center" }}>
+                                <Image
+                                    source={require('../../assets/TempImg-circle.png')}
+                                    style={{ height: 30, width: 30, marginRight: 8 }}
+                                    resizeMode="contain"
+                                />
+                                <Text>중식</Text>
+                            </View>
+
+                            {/* 그래프 바 */}
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: "row",
+                                    backgroundColor: colors.graphSubColor,
+                                    borderRadius: 10,
+                                    overflow: "hidden",
+                                    height: 12,
+                                }}
+                            >
+                                <View style={{ backgroundColor: colors.primary, width: "20%", borderRadius: 10 }} />
+                                <View style={{ backgroundColor: colors.graphSubColor, width: "80%" }} />
+                            </View>
+
+                            <Text style={{ width: 40, textAlign: "right" }}>20%</Text>
+                        </View>
+
+                        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
+                            <View style={{ width: "40%", flexDirection: "row", alignItems: "center" }}>
+                                <Image
+                                    source={require('../../assets/TempImg-circle.png')}
+                                    style={{ height: 30, width: 30, marginRight: 8 }}
+                                    resizeMode="contain"
+                                />
+                                <Text>중식</Text>
+                            </View>
+
+                            {/* 그래프 바 */}
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: "row",
+                                    backgroundColor: colors.graphSubColor,
+                                    borderRadius: 10,
+                                    overflow: "hidden",
+                                    height: 12,
+                                }}
+                            >
+                                <View style={{ backgroundColor: colors.primary, width: "20%", borderRadius: 10 }} />
+                                <View style={{ backgroundColor: colors.graphSubColor, width: "80%" }} />
+                            </View>
+
+                            <Text style={{ width: 40, textAlign: "right" }}>20%</Text>
+                        </View>
+
+                        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
+                            <View style={{ width: "40%", flexDirection: "row", alignItems: "center" }}>
+                                <Image
+                                    source={require('../../assets/TempImg-circle.png')}
+                                    style={{ height: 30, width: 30, marginRight: 8 }}
+                                    resizeMode="contain"
+                                />
+                                <Text>중식</Text>
+                            </View>
+
+                            {/* 그래프 바 */}
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: "row",
+                                    backgroundColor: colors.graphSubColor,
+                                    borderRadius: 10,
+                                    overflow: "hidden",
+                                    height: 12,
+                                }}
+                            >
+                                <View style={{ backgroundColor: colors.primary, width: "20%", borderRadius: 10 }} />
+                                <View style={{ backgroundColor: colors.graphSubColor, width: "80%" }} />
+                            </View>
+
+                            <Text style={{ width: 40, textAlign: "right" }}>20%</Text>
+                        </View>
+
+                        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
+                            <View style={{ width: "40%", flexDirection: "row", alignItems: "center" }}>
+                                <Image
+                                    source={require('../../assets/TempImg-circle.png')}
+                                    style={{ height: 30, width: 30, marginRight: 8 }}
+                                    resizeMode="contain"
+                                />
+                                <Text>중식</Text>
+                            </View>
+
+                            {/* 그래프 바 */}
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: "row",
+                                    backgroundColor: colors.graphSubColor,
+                                    borderRadius: 10,
+                                    overflow: "hidden",
+                                    height: 12,
+                                }}
+                            >
+                                <View style={{ backgroundColor: colors.primary, width: "20%", borderRadius: 10 }} />
+                                <View style={{ backgroundColor: colors.graphSubColor, width: "80%" }} />
+                            </View>
+
+                            <Text style={{ width: 40, textAlign: "right" }}>20%</Text>
+                        </View>
+                    </View>
+                </View>
+
+
+
 
                 <Text>버전1</Text>
                 {/* 이번주 예산 사용률 v1*/}
@@ -216,7 +350,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     container: {
-        paddingHorizontal: 20,
+        paddingTop: 20,
         alignItems: 'center',
         width: '100%',
     },
