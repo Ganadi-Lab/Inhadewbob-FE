@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
 	innerContainer: {
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginTop: 30,
 	},
 	title: {
 		fontSize: 24,
