@@ -22,7 +22,7 @@ function BottomTab({navigation}) {
             }}
         >
             <Tab.Screen
-                name="Home"
+                name="홈"
                 component={Home}
                 options={{
                     headerTitle: () => (
@@ -36,9 +36,16 @@ function BottomTab({navigation}) {
                     ),
                     headerTitleAlign: 'center',
                 }}
+                // 로그인 안 되어 있으면 로그인 페이지로
+                // listeners={({ navigation }) => ({
+                //     tabPress: (e) => {
+                //         e.preventDefault();
+                //         navigation.navigate("Login");
+                //     },
+                // })}
             />
             <Tab.Screen
-                name="Roulette"
+                name="룰렛"
                 component={Roulette}
                 options={{
                     headerTitle: () => (
@@ -52,16 +59,9 @@ function BottomTab({navigation}) {
                     ),
                     headerTitleAlign: 'center',
                 }}
-                // 로그인 안 되어 있으면 로그인 페이지로
-                // listeners={({ navigation }) => ({
-                //     tabPress: (e) => {
-                //         e.preventDefault();
-                //         navigation.navigate("Login");
-                //     },
-                // })}
             />
             <Tab.Screen
-                name="MealLog"
+                name="식단 기록"
                 component={MealLog}
                 options={{
                     headerTitle: () => (
@@ -84,31 +84,8 @@ function BottomTab({navigation}) {
                 // })}
             />
             <Tab.Screen
-                name="MyPage"
+                name="마이"
                 component={MyPage}
-                options={{
-                    headerTitle: () => (
-                    <View style={styles.logoContainer}>
-                        <Image
-                            source={require(LOGO)}
-                            style={styles.logoImg}
-                            resizeMode="contain"
-                        />
-                    </View>
-                    ),
-                    headerTitleAlign: 'center',
-                }}
-                // 로그인 안 되어 있으면 로그인 페이지로
-                // listeners={({ navigation }) => ({
-                //     tabPress: (e) => {
-                //         e.preventDefault();
-                //         navigation.navigate("Login");
-                //     },
-                // })}
-            />
-            <Tab.Screen
-                name="Setting"
-                component={Setting}
                 options={{
                     headerTitle: () => (
                     <View style={styles.logoContainer}>
