@@ -4,6 +4,7 @@ import {View, Image, StyleSheet} from 'react-native';
 import HomePage from '../screens/HomePage';
 import MealLog from '../screens/MealLog';
 import MyPage from '../screens/MyPage';
+import Setting from '../screens/Setting';
 
 const Tab = createBottomTabNavigator();
 const LOGO = '../../assets/LOGO2.png';
@@ -61,6 +62,29 @@ function BottomTab({navigation}) {
             <Tab.Screen
                 name="MyPage"
                 component={MyPage}
+                options={{
+                    headerTitle: () => (
+                    <View style={styles.logoContainer}>
+                        <Image
+                            source={require(LOGO)}
+                            style={styles.logoImg}
+                            resizeMode="contain"
+                        />
+                    </View>
+                    ),
+                    headerTitleAlign: 'center',
+                }}
+                // 로그인 안 되어 있으면 로그인 페이지로
+                // listeners={({ navigation }) => ({
+                //     tabPress: (e) => {
+                //         e.preventDefault();
+                //         navigation.navigate("Login");
+                //     },
+                // })}
+            />
+            <Tab.Screen
+                name="Setting"
+                component={Setting}
                 options={{
                     headerTitle: () => (
                     <View style={styles.logoContainer}>

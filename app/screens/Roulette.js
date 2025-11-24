@@ -1,28 +1,47 @@
-import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {Text, View, StyleSheet, Button, ScrollView, Pressable} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import RouletteMachine from '../components/RouletteMachine';
 import FoodList from '../components/FoodList';
 
-
 export default function Roulette({ handlePresentModalPress }) {
-	const [foodList, setFoodList] = useState([]);
+    const [recFoodList, setRecFoodList] = useState([]);
+
+    const scrollRef = useRef();
+
+    // FoodList 영역 위치 저장
+    const [foodListY, setFoodListY]= useState(0);
+
+    const pressScrollTab = () => {
+        console.log(foodListY);
+        // scrollRef.current.scrollTo({ y: foodListY, animated: true });
+        scrollRef.current.scrollToEnd({ animated: true });
+    }
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <ScrollView ref={scrollRef}>
+                {/* 룰렛 머신 */}
+                <View style={styles.innerContainer}>
+                    <RouletteMachine handlePresentModalPress={handlePresentModalPress} />
+                </View>
 
 
-	return (
-		<SafeAreaView style={styles.container}>
-			{/* 룰렛 머신 */}
-			<View style={styles.innerContainer}>
-				<RouletteMachine handlePresentModalPress={handlePresentModalPress} />
-			</View>
-
-			{/* 룰렛에서 뽑은 메뉴 리스트 출력 */}
-			{/* { foodList && foodList.length() > 0 && <FoodList /> */}
-			<FoodList />
-		</SafeAreaView>
-	);
+                {/* 룰렛에서 뽑은 메뉴 리스트 출력 */}
+                <View
+                    onLayout={(event) => {
+                        setFoodListY(event.nativeEvent.layout.y);
+                    }}
+                >
+                    {/* { recFoodList && recFoodList.length() > 0 && <FoodList /> */}
+                    <FoodList />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
+
 
 
 const styles = StyleSheet.create({
@@ -33,7 +52,8 @@ const styles = StyleSheet.create({
 	innerContainer: {
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginTop: 30,
 	},
 	title: {
 		fontSize: 24,
