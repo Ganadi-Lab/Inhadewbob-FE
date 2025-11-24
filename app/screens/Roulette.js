@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import {Text, View, StyleSheet, Button, ScrollView, Pressable} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 import RouletteMachine from '../components/RouletteMachine';
 import FoodList from '../components/FoodList';
@@ -20,25 +20,27 @@ export default function Roulette({ handlePresentModalPress }) {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView ref={scrollRef}>
-                {/* 룰렛 머신 */}
-                <View style={styles.innerContainer}>
-                    <RouletteMachine handlePresentModalPress={handlePresentModalPress} />
-                </View>
+        <SafeAreaProvider>
+            <SafeAreaView style={styles.container}>
+                <ScrollView ref={scrollRef}>
+                    {/* 룰렛 머신 */}
+                    <View style={styles.innerContainer}>
+                        <RouletteMachine handlePresentModalPress={handlePresentModalPress} />
+                    </View>
 
 
-                {/* 룰렛에서 뽑은 메뉴 리스트 출력 */}
-                <View
-                    onLayout={(event) => {
-                        setFoodListY(event.nativeEvent.layout.y);
-                    }}
-                >
-                    {/* { recFoodList && recFoodList.length() > 0 && <FoodList /> */}
-                    <FoodList />
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                    {/* 룰렛에서 뽑은 메뉴 리스트 출력 */}
+                    <View
+                        onLayout={(event) => {
+                            setFoodListY(event.nativeEvent.layout.y);
+                        }}
+                    >
+                        {/* { recFoodList && recFoodList.length() > 0 && <FoodList /> */}
+                        <FoodList />
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        </SafeAreaProvider>
     );
 }
 
