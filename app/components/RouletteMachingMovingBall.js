@@ -3,7 +3,7 @@ import { View, Animated, Dimensions } from "react-native";
 import Ball from "./Ball";
 import Ball2 from "./Ball2";
 
-const BALL_SIZE = 50; // 공 크기
+const BALL_SIZE = 60; // 공 크기
 const NUM_BALLS = 15;  // 공 개수
 const DURATION = 5000; // 5초
 
