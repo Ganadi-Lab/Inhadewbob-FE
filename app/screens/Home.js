@@ -22,6 +22,11 @@ export default function Home({ navigation, setHomeType }) {
     const maxValue = Math.max(...data.map(item => item.value));
     const barMaxHeight = 120; // 막대 최대 높이(px)
 
+    const total = 500000;
+    const use = 35000;
+    const useRatio = use/total * 100;
+    console.log("useRatio: " + useRatio + "%");
+
     return (
         <SafeAreaView>
             <View style={{ width: "90%", margin: "auto" }}>
@@ -46,7 +51,7 @@ export default function Home({ navigation, setHomeType }) {
 
                         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                             <Text>사용 금액</Text>
-                            <Text>{formatPrice3(35000)} / {formatPrice3(50000)}</Text>
+                            <Text>{formatPrice3(use)} / {formatPrice3(total)}</Text>
                         </View>
 
 
@@ -62,8 +67,7 @@ export default function Home({ navigation, setHomeType }) {
                                 marginVertical: 20,
                             }}
                         >
-                            <View style={{ backgroundColor: colors.primary, borderRadius: 10, height: 20, width: "10%" }}></View>
-                            <View style={{ backgroundColor: colors.graphSubColor, borderRadius: 10, height: 20, width: "90%" }}></View>
+                            <View style={{ backgroundColor: colors.primary, borderRadius: 10, height: 20, width:`${useRatio}%` }}></View>
                         </View>
 
                         <View style={{ flexDirection: "row", margin: "auto" }}>
@@ -71,47 +75,48 @@ export default function Home({ navigation, setHomeType }) {
                                 source={require('../../assets/down-arrow-green.png')}
                                 style={{ width: 16 }}
                                 resizeMode="contain"
-                            />
+                            />java 
                             <Text style={{ fontSize: 16, color: "#4CC55E" }}> 지난 주 대비 {formatPrice3(-5000)}</Text>
                         </View>
                     </View>
                 </View>
 
-                <View
-                    style={{
-                        width: "85%", height: "60",
-                        margin: "auto",
-                        marginVertical: 25,
-                        flexDirection: "row",
-                        justifyContent: "space-between"
-                    }}
-                >
-                    <Pressable
-                        onPress={() => setHomeType("룰렛")}
-                        style={{
-                            width: "47%",
-                            backgroundColor: colors.primary,
-                            borderRadius: 20,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            paddingVertical: 10
-                        }}
-                    >
-                        <Text>룰렛</Text>
-                    </Pressable>
-                    <Pressable
-                        style={{
-                            width: "47%",
-                            backgroundColor: "#FFE66D",
-                            borderRadius: 20,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            paddingVertical: 10
-                        }}>
-                        <Text>식당 검색</Text>
-                    </Pressable>
-                </View>
+                {/*<View*/}
+                {/*    style={{*/}
+                {/*        width: "85%", height: "60",*/}
+                {/*        margin: "auto",*/}
+                {/*        marginVertical: 25,*/}
+                {/*        flexDirection: "row",*/}
+                {/*        justifyContent: "space-between"*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    <Pressable*/}
+                {/*        onPress={() => setHomeType("룰렛")}*/}
+                {/*        style={{*/}
+                {/*            width: "47%",*/}
+                {/*            backgroundColor: colors.primary,*/}
+                {/*            borderRadius: 20,*/}
+                {/*            justifyContent: "center",*/}
+                {/*            alignItems: "center",*/}
+                {/*            paddingVertical: 10*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        <Text>룰렛</Text>*/}
+                {/*    </Pressable>*/}
+                {/*    <Pressable*/}
+                {/*        style={{*/}
+                {/*            width: "47%",*/}
+                {/*            backgroundColor: "#FFE66D",*/}
+                {/*            borderRadius: 20,*/}
+                {/*            justifyContent: "center",*/}
+                {/*            alignItems: "center",*/}
+                {/*            paddingVertical: 10*/}
+                {/*        }}>*/}
+                {/*        <Text>식당 검색</Text>*/}
+                {/*    </Pressable>*/}
+                {/*</View>*/}
 
+                <View style={{padding:20}}></View>
 
                 <View
                     style={{
@@ -288,56 +293,56 @@ export default function Home({ navigation, setHomeType }) {
 
 
 
-                <Text>버전1</Text>
-                {/* 이번주 예산 사용률 v1*/}
-                <BarGraph1 />
+                {/*<Text>버전1</Text>*/}
+                {/*/!* 이번주 예산 사용률 v1*!/*/}
+                {/*<BarGraph1 />*/}
 
-                {/* 주차별 비교 */}
-                <View style={styles.line} />
-                <View>
-                    <Text>이번 주 지출/목표 비용</Text>
-                </View>
-                <View>
-                    <Text>5,250/250,000 원</Text>
-                </View>
-
-
-                <View style={styles.line} />
-                <View>
-                    <Text>지난 주 대비 +/-</Text>
-                </View>
-                <View>
-                    <Text>-62,000 원</Text>
-                </View>
+                {/*/!* 주차별 비교 *!/*/}
+                {/*<View style={styles.line} />*/}
+                {/*<View>*/}
+                {/*    <Text>이번 주 지출/목표 비용</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*    <Text>5,250/250,000 원</Text>*/}
+                {/*</View>*/}
 
 
-                <View style={{ height: 100 }}></View>
-                <Text>버전2</Text>
-                {/* 이번주 예산 사용률 v2*/}
-                <SemicircleGraph />
-
-                {/* 주차별 비교 */}
-                <Text>지난주보다 ₩3,600 증가했듀</Text>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "80%" }}>
-                    <View>
-                        <Text>이번주 지출</Text>
-                        <Text>₩50,000</Text>
-                    </View>
-                    <View>
-                        <Text>목표 금액</Text>
-                        <Text>₩250,000</Text>
-                    </View>
-                    <View>
-                        <Text>남은 금액</Text>
-                        <Text>₩200,000</Text>
-                    </View>
-                </View>
+                {/*<View style={styles.line} />*/}
+                {/*<View>*/}
+                {/*    <Text>지난 주 대비 +/-</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*    <Text>-62,000 원</Text>*/}
+                {/*</View>*/}
 
 
-                {/* 주차별 비교 */}
-                <Text>주차별 비교</Text>
-                <BarGraph2 />
-                <BarGraph3 /> {/* 둘 중 하나 사용 */}
+                {/*<View style={{ height: 100 }}></View>*/}
+                {/*<Text>버전2</Text>*/}
+                {/*/!* 이번주 예산 사용률 v2*!/*/}
+                {/*<SemicircleGraph />*/}
+
+                {/*/!* 주차별 비교 *!/*/}
+                {/*<Text>지난주보다 ₩3,600 증가했듀</Text>*/}
+                {/*<View style={{ flexDirection: "row", justifyContent: "space-between", width: "80%" }}>*/}
+                {/*    <View>*/}
+                {/*        <Text>이번주 지출</Text>*/}
+                {/*        <Text>₩50,000</Text>*/}
+                {/*    </View>*/}
+                {/*    <View>*/}
+                {/*        <Text>목표 금액</Text>*/}
+                {/*        <Text>₩250,000</Text>*/}
+                {/*    </View>*/}
+                {/*    <View>*/}
+                {/*        <Text>남은 금액</Text>*/}
+                {/*        <Text>₩200,000</Text>*/}
+                {/*    </View>*/}
+                {/*</View>*/}
+
+
+                {/*/!* 주차별 비교 *!/*/}
+                {/*<Text>주차별 비교</Text>*/}
+                {/*<BarGraph2 />*/}
+                {/*<BarGraph3 /> /!* 둘 중 하나 사용 *!/*/}
             </View>
         </SafeAreaView>
     );
