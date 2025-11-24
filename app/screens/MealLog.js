@@ -41,12 +41,14 @@ export default function MealLog({ navigation }) {
                                 <WeeklyCalendar2 selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
                                 {/* 선택한 날짜 - 식단 기록 view */}
-                                <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1, height: 900, }}>
                                     {/*<View>
                                         <Text>{formatDateTime(selectedDate)}</Text>
                                     </View>*/}
 
-                                    <MealList />
+                                    <ScrollView>
+                                        <MealList />
+                                    </ScrollView>
                                 </View>
                             </View>
                         </BottomSheetView>
