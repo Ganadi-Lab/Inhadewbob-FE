@@ -6,6 +6,7 @@ import MealLog from '../screens/MealLog';
 import MyPage from '../screens/MyPage';
 import Setting from '../screens/Setting';
 import Roulette from "../screens/Roulette";
+import {colors} from "../constants/colors";
 
 const Tab = createBottomTabNavigator();
 const LOGO = '../../assets/LOGO2.png';
@@ -16,15 +17,27 @@ function BottomTab({navigation}) {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#fb8c00',
+                tabBarActiveTintColor: colors.primary,
                 tabBarShowLabel: true,
                 tabBarIcon: () => null,
             }}
         >
             <Tab.Screen
-                name="홈"
+                name="Home"
                 component={Home}
                 options={{
+                    tabBarLabel: '홈',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={require('../../assets/home-tab.png')}
+                            style={{
+                                width: 25,
+                                height: 25,
+                                tintColor: focused ? colors.primary : colors.graphSubColor,
+                            }}
+                            resizeMode="contain"
+                        />
+                    ),
                     headerTitle: () => (
                     <View style={styles.logoContainer}>
                         <Image
@@ -45,9 +58,21 @@ function BottomTab({navigation}) {
                 // })}
             />
             <Tab.Screen
-                name="룰렛"
+                name="Roulette"
                 component={Roulette}
                 options={{
+                    tabBarLabel: '를렛',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={require('../../assets/roulette-tab.png')}
+                            style={{
+                                width: 25,
+                                height: 25,
+                                tintColor: focused ? colors.primary : colors.graphSubColor,
+                            }}
+                            resizeMode="contain"
+                        />
+                    ),
                     headerTitle: () => (
                         <View style={styles.logoContainer}>
                             <Image
@@ -61,9 +86,21 @@ function BottomTab({navigation}) {
                 }}
             />
             <Tab.Screen
-                name="식단 기록"
+                name="MealLog"
                 component={MealLog}
                 options={{
+                    tabBarLabel: '식단 기록',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={require('../../assets/roulette-tab.png')}
+                            style={{
+                                width: 25,
+                                height: 25,
+                                tintColor: focused ? colors.primary : colors.graphSubColor,
+                            }}
+                            resizeMode="contain"
+                        />
+                    ),
                     headerTitle: () => (
                     <View style={styles.logoContainer}>
                         <Image
@@ -84,9 +121,21 @@ function BottomTab({navigation}) {
                 // })}
             />
             <Tab.Screen
-                name="마이"
+                name="MyPage"
                 component={MyPage}
                 options={{
+                    tabBarLabel: '마이',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={require('../../assets/my-tab.png')}
+                            style={{
+                                width: 25,
+                                height: 25,
+                                tintColor: focused ? colors.primary : colors.graphSubColor,
+                            }}
+                            resizeMode="contain"
+                        />
+                    ),
                     headerTitle: () => (
                     <View style={styles.logoContainer}>
                         <Image
