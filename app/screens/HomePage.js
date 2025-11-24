@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import {View, ScrollView, Button} from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './Home.js';
 import Roulette from './Roulette.js';
@@ -59,10 +59,18 @@ export default function HomePage({ navigation }) {
                         {homeType === "홈" && <Home setHomeType={setHomeType} />}
                         {homeType === "룰렛" && <Roulette handlePresentModalPress={handlePresentModalPress} />}
 
-                        {/* <Button
+                        <Button
                             title="로그인 페이지로 이동"
                             onPress={() => navigation.getParent().navigate("Login")}
-                        /> */}
+                        />
+                        <Button
+                            title="frontPage 이동"
+                            onPress={() => navigation.getParent().navigate("FrontPage")}
+                        />
+                        <Button
+                            title="초기 설정"
+                            onPress={() => navigation.getParent().navigate("InitialSetting")}
+                        />
                     </ScrollView>
 
                 </SafeAreaView>
