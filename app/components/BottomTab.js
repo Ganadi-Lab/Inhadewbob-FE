@@ -1,10 +1,11 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Image, StyleSheet} from 'react-native';
-import HomePage from '../screens/HomePage';
+import Home from '../screens/Home';
 import MealLog from '../screens/MealLog';
 import MyPage from '../screens/MyPage';
 import Setting from '../screens/Setting';
+import Roulette from "../screens/Roulette";
 
 const Tab = createBottomTabNavigator();
 const LOGO = '../../assets/LOGO2.png';
@@ -21,8 +22,8 @@ function BottomTab({navigation}) {
             }}
         >
             <Tab.Screen
-                name="HomePage"
-                component={HomePage}
+                name="Home"
+                component={Home}
                 options={{
                     headerTitle: () => (
                     <View style={styles.logoContainer}>
@@ -35,6 +36,29 @@ function BottomTab({navigation}) {
                     ),
                     headerTitleAlign: 'center',
                 }}
+            />
+            <Tab.Screen
+                name="Roulette"
+                component={Roulette}
+                options={{
+                    headerTitle: () => (
+                        <View style={styles.logoContainer}>
+                            <Image
+                                source={require(LOGO)}
+                                style={styles.logoImg}
+                                resizeMode="contain"
+                            />
+                        </View>
+                    ),
+                    headerTitleAlign: 'center',
+                }}
+                // 로그인 안 되어 있으면 로그인 페이지로
+                // listeners={({ navigation }) => ({
+                //     tabPress: (e) => {
+                //         e.preventDefault();
+                //         navigation.navigate("Login");
+                //     },
+                // })}
             />
             <Tab.Screen
                 name="MealLog"
