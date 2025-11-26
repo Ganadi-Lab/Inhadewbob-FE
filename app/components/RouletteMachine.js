@@ -2,12 +2,17 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions, Pressable, Animated } from 'react-native';
 import RouletteMachineMovingBall from './RouletteMachingMovingBall';
 import { RouletteColors } from '../constants/colors';
+import { formatPrice3 } from './../utils/FormatPrice3';
 
 
 const { width } = Dimensions.get("window");
 
 
-export default function RouletteMachine({ handlePresentModalPress }) {
+export default function RouletteMachine({ 
+	handlePresentModalPress,
+	selectedBudget,
+	checked
+}) {
 	const spinAnim = useRef(new Animated.Value(0)).current;
 	const [spinning, setSpinning] = useState(false);
 
@@ -53,10 +58,24 @@ export default function RouletteMachine({ handlePresentModalPress }) {
 			{/* 예산, 카테고리 선택 패널, 버튼 */}
 			<View style={styles.panelRow}>
 				<View style={styles.panel}>
-					<Text style={{ fontWeight: 'bold', fontSize: 15, color: "#bbb" }}>예산과 카테고리 선택해듀</Text>
+					{
+						((!selectedBudget || selectedBudget === 0) && (!checked || checked.length === 0)) &&
+							<Text style={{ fontWeight: 'bold', fontSize: 15, color: "#bbb" }}>예산과 카테고리 선택해듀</Text>
+					}
+					{ (selectedBudget != 0 && selectedBudget) && <Text>{formatPrice3(selectedBudget)}</Text> }
+					{ (selectedBudget != 0 && checked.length != 0) && <Text> / </Text> }
+					{ (checked.length != 0 && checked) && <Text>{checked}</Text> }
+					
 				</View>
 				
-				<Pressable style={styles.moveBtn} onPress={() => {console.log("click"); handlePresentModalPress();}}>
+				<Pressable 
+					onPress={() => {
+						console.log("click"); 
+						handlePresentModalPress();
+					}}
+					style={styles.moveBtn}
+				>
+					
 					<Text style={styles.moveBtnText}>이동</Text>
 				</Pressable>
 			</View>
