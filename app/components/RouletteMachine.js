@@ -59,7 +59,7 @@ export default function RouletteMachine({
 			<View style={styles.panelRow}>
 				<View style={styles.panel}>
 					{
-						((!selectedBudget || selectedBudget === 0) && (!checked || checked.length === 0)) &&
+						((!selectedBudget || selectedBudget == 0) && (!checked || checked.length === 0)) &&
 							<Text style={{ fontWeight: 'bold', fontSize: 15, color: "#bbb" }}>예산과 카테고리 선택해듀</Text>
 					}
 					{ (selectedBudget != 0 && selectedBudget) && <Text>{formatPrice3(selectedBudget)}</Text> }
