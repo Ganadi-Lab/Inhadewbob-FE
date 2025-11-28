@@ -65,26 +65,30 @@ export default function RouletteMachine({
 			{/* 예산, 카테고리 선택 패널, 버튼 */}
 			<View style={styles.panelRow}>
 				<View style={styles.panel2}>
-					{
-						((!selectedBudget || selectedBudget == 0) && (!checked || checked.length === 0)) &&
-							<Text style={{ fontWeight: 'bold', fontSize: 15, color: "#bbb" }}>예산과 카테고리 선택해듀</Text>
-					}
-					{ (selectedBudget != 0 && selectedBudget) && <Text>{formatPrice3(selectedBudget)}</Text> }
-					{ (selectedBudget != 0 && checked.length != 0) && <Text> / </Text> }
-					{ (checked.length != 0 && checked) && <Text>{checked}</Text> }
-					
+					{/* 선택한 사항(음식 카테고리, 선택 예산) 나오는 패널 */}
+					<View>
+						{
+							((!selectedBudget || selectedBudget == 0) && (!checked || checked.length === 0)) &&
+								<Text style={{ fontWeight: 'bold', fontSize: 15, color: "#bbb" }}>예산과 카테고리 선택해듀</Text>
+						}
+						{ (selectedBudget != 0 && selectedBudget) && <Text>{formatPrice3(selectedBudget)}</Text> }
+						{ (selectedBudget != 0 && checked.length != 0) && <Text> / </Text> }
+						{ (checked.length != 0 && checked) && <Text>{checked}</Text> }
+					</View>
+
+					{/* 이동 버튼 */}
+					<Pressable 
+						onPress={() => {
+							console.log("click"); 
+							handlePresentModalPress();
+						}}
+						style={styles.moveBtn}
+					>
+						
+						<Text style={styles.moveBtnText}>이동</Text>
+					</Pressable>
 				</View>
 				
-				<Pressable 
-					onPress={() => {
-						console.log("click"); 
-						handlePresentModalPress();
-					}}
-					style={styles.moveBtn}
-				>
-					
-					<Text style={styles.moveBtnText}>이동</Text>
-				</Pressable>
 			</View>
 
 			<View style={styles.bottomRow}>
@@ -149,11 +153,12 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	moveBtn: {
+		position: "absolute",
+		right: 0,	// panel2 안에서 오른쪽 정렬
 		width: 60,
 		height: 48,
 		backgroundColor: RouletteColors.btnBorder,
 		borderRadius: 12,
-		marginLeft: 12,
 		alignItems: "center",
 		justifyContent: "center",
 	},
