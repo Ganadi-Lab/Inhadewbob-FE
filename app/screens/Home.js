@@ -5,6 +5,7 @@ import { colors } from '../constants/colors';
 import { formatPrice3 } from '../utils/FormatPrice3';
 import RecentFoodList from '../components/RecentFoodList';
 import React from "react";
+import ImageBackground from './../../node_modules/react-native-web/src/exports/ImageBackground/index';
 
 
 const data = [
@@ -106,7 +107,7 @@ export default function Home({ navigation, setHomeType }) {
                             >
                                 <Image
                                     source={require('../../assets/roulette-tab.png')}
-                                    style={{ tintColor: "white", height: 25 }}
+                                    style={{ tintColor: "white", height: 25, width: 45 }}
                                     resizeMode="contain"
                                 />
                                 <Text style={{color: "white", fontWeight: "bold"}}>룰렛</Text>
@@ -127,7 +128,7 @@ export default function Home({ navigation, setHomeType }) {
                             >
                                 <Image
                                     source={require('../../assets/calendar-tab.png')}
-                                    style={{ tintColor: "black", height: 25 }}
+                                    style={{ tintColor: "black", height: 25, width: 40 }}
                                     resizeMode="contain"
                                 />
                                 <Text style={{ fontWeight:"bold" }}>식단 기록</Text>
