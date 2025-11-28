@@ -58,7 +58,7 @@ export default function RouletteMachine({
 					resizeMode="contain"
 				/>
 				<Text style={{color: "white", fontWeight: "bold", fontSize: 18}}>
-					오늘의 추천 예산 <Text style={{ fontWeight: "bold" }}>₩ 55,000</Text>
+					오늘의 추천 예산：<Text style={{ fontWeight: "bold" }}>{formatPrice3(55000)}</Text>
 				</Text>
 			</View>
 
