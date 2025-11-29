@@ -54,10 +54,10 @@ export default function RouletteMachine({
 			<View style={styles.panel}>
 				<Image
 					source={require('../../assets/money.png')}
-					style={{ tintColor: "white", height: 25, paddingVertical:5, }}
+					style={{ tintColor: "white", height: 25, width: 25, marginRight:5, }}
 					resizeMode="contain"
 				/>
-				<Text style={{color: "white", fontWeight: "bold", fontSize: 18}}>
+				<Text style={{ color: "white", fontWeight: "bold", fontSize: 18, textAlign: 'center', }}>
 					오늘의 추천 예산：<Text style={{ fontWeight: "bold" }}>{formatPrice3(55000)}</Text>
 				</Text>
 			</View>
