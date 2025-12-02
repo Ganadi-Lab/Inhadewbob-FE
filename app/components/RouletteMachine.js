@@ -11,7 +11,8 @@ const { width } = Dimensions.get("window");
 export default function RouletteMachine({ 
 	handlePresentModalPress,
 	selectedBudget,
-	checked
+	checked,
+	recBudget
 }) {
 	const spinAnim = useRef(new Animated.Value(0)).current;
 	const [spinning, setSpinning] = useState(false);
@@ -58,7 +59,7 @@ export default function RouletteMachine({
 					resizeMode="contain"
 				/>
 				<Text style={{ color: "white", fontWeight: "bold", fontSize: 18, textAlign: 'center', }}>
-					오늘의 추천 예산：<Text style={{ fontWeight: "bold" }}>{formatPrice3(55000)}</Text>
+					오늘의 추천 예산：<Text style={{ fontWeight: "bold" }}>{formatPrice3(recBudget)}</Text>
 				</Text>
 			</View>
 

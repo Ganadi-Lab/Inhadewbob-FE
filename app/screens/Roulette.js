@@ -1,5 +1,5 @@
-import React, {useState, useRef, useCallback, useMemo, useEffect} from 'react';
-import {Text, View, StyleSheet, Button, ScrollView, Pressable} from 'react-native';
+import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import { Text, View, StyleSheet, Button, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
 import BudgetCategoryBottomSheet from '../components/BudgetCategoryBottomSheet.js';
@@ -7,14 +7,16 @@ import BudgetCategoryBottomSheet from '../components/BudgetCategoryBottomSheet.j
 
 import RouletteMachine from '../components/RouletteMachine';
 import FoodList from '../components/FoodList';
+import { getRecommendPrice } from '../api/menu.js';
 
 export default function Roulette() {
     const [recFoodList, setRecFoodList] = useState([]);
+    const [recBudget, setRecBudget] = useState(0);
 
     const scrollRef = useRef();
 
     // FoodList 영역 위치 저장
-    const [foodListY, setFoodListY]= useState(0);
+    const [foodListY, setFoodListY] = useState(0);
 
     const pressScrollTab = () => {
         console.log(foodListY);
@@ -34,12 +36,25 @@ export default function Roulette() {
     const [selectedBudget, setSelectedBudget] = useState('');
     const [checked, setChecked] = useState([]);
 
+    useEffect(async () => {
+        // 추천 예산 받아오는 api
+        await setRecBudget(await getRecommendPrice());
+    }, []);
+
+    // log
     useEffect(() => {
         console.log("selectedBudget: " + selectedBudget);
     }, [selectedBudget]);
     useEffect(() => {
         console.log("checked: " + checked);
     }, [checked]);
+    useEffect(() => {
+        console.log("recBudget: ");
+        console.log(recBudget);
+    }, [recBudget]);
+    useEffect(() => {
+        console.log("recFoodList: " + recFoodList);
+    }, [recFoodList]);
 
 
     return (
@@ -53,9 +68,9 @@ export default function Roulette() {
                         <BottomSheetView>
                             <View>
                                 <BudgetCategoryBottomSheet
-                                    selectedBudget={selectedBudget} 
-                                    setSelectedBudget={setSelectedBudget} 
-                                    checked={checked} 
+                                    selectedBudget={selectedBudget}
+                                    setSelectedBudget={setSelectedBudget}
+                                    checked={checked}
                                     setChecked={setChecked}
                                 />
                             </View>
@@ -66,10 +81,11 @@ export default function Roulette() {
                         <View style={{ margin: "auto", width: "90%", }}>
                             {/* 룰렛 머신 */}
                             <View style={styles.innerContainer}>
-                                <RouletteMachine 
-                                    handlePresentModalPress={handlePresentModalPress} 
+                                <RouletteMachine
+                                    handlePresentModalPress={handlePresentModalPress}
                                     selectedBudget={selectedBudget}
                                     checked={checked}
+                                    recBudget={recBudget}
                                 />
                             </View>
 
@@ -94,23 +110,23 @@ export default function Roulette() {
 
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
+    container: {
+        flex: 1,
         backgroundColor: "white",
-	},
-	innerContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginTop: 30,
-	},
-	title: {
-		fontSize: 24,
-		marginBottom: 20
-	},
-	sheetContent: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
+    },
+    innerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 30,
+    },
+    title: {
+        fontSize: 24,
+        marginBottom: 20
+    },
+    sheetContent: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
