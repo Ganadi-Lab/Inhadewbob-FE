@@ -13,9 +13,9 @@ import { getConsumeStat, getConsumeStats } from '../api/consumeLog';
 const BACKEND_URL = "https://inha-dewbob.p-e.kr";
 
 let data = [
-    { value: 360000, label: '10월 2주차', frontColor: colors.graphSubColor },
-    { value: 230000, label: '10월 3주차', frontColor: colors.graphSubColor },
-    { value: 120000, label: '10월 4주차', frontColor: colors.primary },
+    { value: 0, label: '-', frontColor: colors.graphSubColor },
+    { value: 0, label: '-', frontColor: colors.graphSubColor },
+    { value: 0, label: '-', frontColor: colors.primary },
 ];
 
 const screenWidth = Dimensions.get('window').width;
