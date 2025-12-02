@@ -61,8 +61,8 @@ export default function WeeklyCalendar2({ selectedDate, setSelectedDate }) {
                 disabledDateNameStyle={{ color: 'grey' }}
                 disabledDateNumberStyle={{ color: 'grey' }}
 
-                iconLeft={require('../../assets/left-arrow-black.png')}
-                iconRight={require('../../assets/right-arrow-black.png')}
+                iconLeft={require('../../assets/left-arrow.png')}
+                iconRight={require('../../assets/right-arrow.png')}
                 iconContainer={{ 
                     flex: 0.1,
                     tintColor: "black",
