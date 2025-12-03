@@ -50,7 +50,7 @@ export default function Home({ navigation, setHomeType }) {
 
             // 소비 통계 조회
             await setStatistics(await getConsumeStats());
-            setUseRatio(statistics.thisWeekSpent / statistics.budget * 100);
+            await setUseRatio(statistics.thisWeekSpent / statistics.budget * 100);
 
             data[0].value = statistics.twoWeeksAgoSpent;
             data[1].value = statistics.lastWeekSpent;
