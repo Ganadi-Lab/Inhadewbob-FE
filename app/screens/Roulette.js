@@ -73,6 +73,7 @@ export default function Roulette() {
                                     checked={checked}
                                     setChecked={setChecked}
                                     recBudget={recBudget}
+                                    setRecFoodList={setRecFoodList}
                                 />
                             </View>
                         </BottomSheetView>
@@ -98,7 +99,7 @@ export default function Roulette() {
                                 }}
                             >
                                 {/* { recFoodList && recFoodList.length() > 0 && <FoodList /> */}
-                                <FoodList />
+                                <FoodList recFoodList={recFoodList} />
                             </View>
                         </View>
                     </ScrollView>
