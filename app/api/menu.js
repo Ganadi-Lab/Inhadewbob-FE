@@ -1,5 +1,6 @@
 import axios from "axios";
 import { loadAccessToken } from "../../tokenStorage";
+import api from "./api";
 
 const BACKEND_URL = "https://inha-dewbob.p-e.kr";
 
@@ -7,8 +8,6 @@ const BACKEND_URL = "https://inha-dewbob.p-e.kr";
 // 랜덤 식당 메뉴 조회(룰렛)
 export const getMenusByRoulette = async (category, price) => {
     const date = new Date().toISOString().split("T")[0];
-    const loadAccessTokened = await loadAccessToken();
-
     const paramsData = {};
 
     paramsData.date = date;
@@ -16,11 +15,8 @@ export const getMenusByRoulette = async (category, price) => {
     if (price) { paramsData.price = price; }
 
     try {
-        const res = await axios.get(`${BACKEND_URL}/menus/roulette`, {
-            params: { paramsData },
-            headers: {
-                Authorization: `Bearer ${loadAccessTokened}`,
-            },
+        const res = await api.get(`/menus/roulette`, {
+            params: { paramsData }
         });
 
         console.log("getMenusByRoulette 조회 성공: ", res.data);
@@ -36,14 +32,10 @@ export const getMenusByRoulette = async (category, price) => {
 // 추천 예산 조회
 export const getRecommendPrice = async () => {
     const date = new Date().toISOString().split("T")[0];
-    const loadAccessTokened = await loadAccessToken();
 
     try {
-        const res = await axios.get(`${BACKEND_URL}/menus/recom`, {
-            params: { date: date },
-            headers: {
-                Authorization: `Bearer ${loadAccessTokened}`,
-            },
+        const res = await api.get(`/menus/recom`, {
+            params: { date: date }
         });
 
         console.log("getRecommendPrice 조회 성공: ", res.data.recommendPrice);
