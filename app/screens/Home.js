@@ -4,31 +4,74 @@ import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { colors } from '../constants/colors';
 import { formatPrice3 } from '../utils/FormatPrice3';
 import RecentFoodList from '../components/RecentFoodList';
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { loadAccessToken } from '../../tokenStorage';
+import axios from 'axios';
+import { getProfile } from '../api/auth';
+import { getConsumeStat, getConsumeStats } from '../api/consumeLog';
 
+const BACKEND_URL = "https://inha-dewbob.p-e.kr";
 
-const data = [
-    { value: 360000, label: '10월 2주차', frontColor: colors.graphSubColor },
-    { value: 230000, label: '10월 3주차', frontColor: colors.graphSubColor },
-    { value: 120000, label: '10월 4주차', frontColor: colors.primary },
+let data = [
+    { value: 0, label: '-', frontColor: colors.graphSubColor },
+    { value: 0, label: '-', frontColor: colors.graphSubColor },
+    { value: 0, label: '-', frontColor: colors.primary },
 ];
 
 const screenWidth = Dimensions.get('window').width;
+const today = new Date();
 
 export default function Home({ navigation, setHomeType }) {
+    const [userInfo, setUserInfo] = useState([]);
+
     // 최대값 구해서 비율 계산
     const maxValue = Math.max(...data.map(item => item.value));
     const barMaxHeight = 120; // 막대 최대 높이(px)
 
-    const total = 500000;
-    const use = 35000;
-    const useRatio = use / total * 100;
-    console.log("useRatio: " + useRatio + "%");
+    const [budget, setBudget] = useState(0);
+    const [thisWeekSpent, setThisWeekSpent] = useState(0);
+    const [differenceFromLastWeekSpent, setDifferenceFromLastWeekSpent] = useState(0);
+    const [useRatio, setUseRatio] = useState(0);   // = thisWeekSpent / budget * 100
+    const [statistics, setStatistics] = useState([]);
+
+    useEffect(() => {
+        const loadData = async () => {
+
+            // 프로필 조회
+            await setUserInfo(await getProfile());
+
+            // 소비 현황 조회
+            const res = await getConsumeStat();
+
+            await setBudget(res.budget);
+            await setThisWeekSpent(res.thisWeekSpent);
+            await setDifferenceFromLastWeekSpent(res.differenceFromLastWeekSpent);
+
+
+            // 소비 통계 조회
+            await setStatistics(await getConsumeStats());
+            await setUseRatio(statistics.thisWeekSpent / statistics.budget * 100);
+
+            data[0].value = statistics.twoWeeksAgoSpent;
+            data[1].value = statistics.lastWeekSpent;
+            data[2].value = statistics.thisWeekSpent;
+            data[2].label = statistics.currentMonth + "월 " + statistics.currentWeek + "주차";
+
+        };
+
+        loadData(); // async 함수 실행
+        console.log("data: ");
+        console.log(data);
+    }, []);
+
+
+
 
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{ backgroundColor: "white" }}>
                 <ScrollView>
+                    <Text>{userInfo.nickname} ========</Text>
                     <View style={{ width: "90%", margin: "auto" }}>
                         <View>
                             <Image
@@ -43,7 +86,7 @@ export default function Home({ navigation, setHomeType }) {
 
                                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                     <Text>사용 금액</Text>
-                                    <Text>{formatPrice3(use)} / {formatPrice3(total)}</Text>
+                                    <Text>{formatPrice3(thisWeekSpent)} / {formatPrice3(budget)}</Text>
                                 </View>
 
 
@@ -63,22 +106,28 @@ export default function Home({ navigation, setHomeType }) {
                                 </View>
 
                                 {/* 둘 중 하나 case에 맞게 switch */}
-                                <View style={{ flexDirection: "row", margin: "auto" }}>
-                                    <Image
-                                        source={require('../../assets/down-arrow-green.png')}
-                                        style={{ width: 16 }}
-                                        resizeMode="contain"
-                                    />
-                                    <Text style={{ fontSize: 16, color: "#4CC55E" }}> 지난 주 대비 {formatPrice3(-5000)}</Text>
-                                </View>
-                                <View style={{ flexDirection: "row", margin: "auto" }}>
-                                    <Image
-                                        source={require('../../assets/up-arrow-pink.png')}
-                                        style={{ width: 16 }}
-                                        resizeMode="contain"
-                                    />
-                                    <Text style={{ fontSize: 16, color: "#F88BB1" }}> 지난 주 대비 +{formatPrice3(5000)}</Text>
-                                </View>
+                                {
+                                    differenceFromLastWeekSpent < 0 &&
+                                    <View style={{ flexDirection: "row", margin: "auto" }}>
+                                        <Image
+                                            source={require('../../assets/down-arrow-green.png')}
+                                            style={{ width: 16 }}
+                                            resizeMode="contain"
+                                        />
+                                        <Text style={{ fontSize: 16, color: "#4CC55E" }}> 지난 주 대비 {formatPrice3(differenceFromLastWeekSpent)}</Text>
+                                    </View>
+                                }
+                                {
+                                    differenceFromLastWeekSpent > 0 &&
+                                    <View style={{ flexDirection: "row", margin: "auto" }}>
+                                        <Image
+                                            source={require('../../assets/up-arrow-pink.png')}
+                                            style={{ width: 16 }}
+                                            resizeMode="contain"
+                                        />
+                                        <Text style={{ fontSize: 16, color: "#F88BB1" }}> 지난 주 대비 +{formatPrice3(differenceFromLastWeekSpent)}</Text>
+                                    </View>
+                                }
                             </View>
                         </View>
 
@@ -146,7 +195,7 @@ export default function Home({ navigation, setHomeType }) {
                                         // item.value / maxValue : 현재 값이 최대 값에 대한 비율
                                         // * barMaxHeight : 해당 비율을 막대 최대 높이에 곱하여 실제 픽셀 높이 계산
                                         const barHeight = (item.value / maxValue) * barMaxHeight;
-
+                                        console.log(item);
                                         return (
                                             <View key={index} style={styles.barWrapper}>
                                                 <Text style={styles.label}>{formatPrice3(item.value)}</Text>
@@ -234,7 +283,7 @@ export default function Home({ navigation, setHomeType }) {
                     />
                 </ScrollView>
             </SafeAreaView>
-        </SafeAreaProvider>
+        </SafeAreaProvider >
     );
 }
 

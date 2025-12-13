@@ -3,10 +3,11 @@ import { FoodCategory } from '../constants/FoodCategory';
 import { colors } from "../constants/colors";
 import { useEffect, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { formatPrice3 } from './../utils/FormatPrice3';
 
 
 export default function BudgetCategoryBottomSheet({
-    selectedBudget, setSelectedBudget, checked, setChecked
+    selectedBudget, setSelectedBudget, checked, setChecked, recBudget
 }) {
     const [saved, setSaved] = useState(true);
 
@@ -47,7 +48,7 @@ export default function BudgetCategoryBottomSheet({
                     <Text style={styles.subTitle}>한 끼 예산</Text>
                     <TextInput
                         keyboardType="number-pad"
-                        placeholder="가격을 입력하세요. (예: 8000)"
+                        placeholder={`가격을 입력하세요. (추천 예산: ${formatPrice3(recBudget)})`}
                         defaultValue={(selectedBudget && selectedBudget != 0) ? selectedBudget : ""}
                         style={styles.input}
                         onChangeText={text => {

@@ -1,4 +1,4 @@
-import { Text, View, Image, TextInput, StyleSheet } from 'react-native';
+import { Text, View, Image, TextInput, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import React, {useState} from 'react';
 import Toggle from '../components/Toggle'
@@ -70,7 +70,7 @@ export default function MyPage({ navigation }) {
             <Text style={styles.text}>연동 계정</Text>
               <Image
                 style={styles.arrowRight}
-                source={require('../../assets/arrow-right.png')}
+                source={require('../../assets/right-arrow.png')}
               />
           </View>
 
@@ -81,7 +81,7 @@ export default function MyPage({ navigation }) {
             <Text style={styles.text}>사용자 이름 변경</Text>
               <Image
                 style={styles.arrowRight}
-                source={require('../../assets/arrow-right.png')}
+                source={require('../../assets/right-arrow.png')}
               />            
           </View>
 
@@ -92,7 +92,7 @@ export default function MyPage({ navigation }) {
             <Text style={styles.text}>프로필 사진 변경</Text>
               <Image
                 style={styles.arrowRight}
-                source={require('../../assets/arrow-right.png')}
+                source={require('../../assets/right-arrow.png')}
               />              
           </View>
 
@@ -103,7 +103,7 @@ export default function MyPage({ navigation }) {
             <Text style={styles.text}>탈퇴하기</Text>
               <Image
                 style={styles.arrowRight}
-                source={require('../../assets/arrow-right.png')}
+                source={require('../../assets/right-arrow.png')}
               />
           </View>
         </View>
