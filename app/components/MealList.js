@@ -4,9 +4,8 @@ import MealItem from "./MealItem";
 
 
 export default function MealList({ dailyMealList }) {
-    console.log(dailyMealList);
     return (
-        <View style={styles.container}>
+        <View>
             {dailyMealList && dailyMealList.map((item) => {
                 return (
                     <MealItem key={item.id} item={item} />
@@ -15,9 +14,3 @@ export default function MealList({ dailyMealList }) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 20,
-    }
-});
