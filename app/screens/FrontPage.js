@@ -17,8 +17,7 @@ export default function FrontPage({ navigation }) {
                 // 처음 실행이면 저장 후 5초 뒤 InitialSetting으로
                 await AsyncStorage.setItem('hasLaunched', 'true');
                 setTimeout(() => {
-                    // 온보딩 페이지 만들어지면 온보딩 화면으로 변경해야함
-                    navigation.replace("InitialSetting");
+                    navigation.replace("OnboardingPage");
                 }, 3000);
             }
         } catch (e) {
