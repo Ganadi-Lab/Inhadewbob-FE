@@ -30,6 +30,7 @@ export default function Login({ navigation }) {
     const [userInfo, setUserInfo] = useState(null);
     const [ART, setART] = useState([]); // access, refresh token 저장용
 
+
     const saveToken = async () => {
         try {
             console.log("saveToken raw ART:", ART);
@@ -42,13 +43,11 @@ export default function Login({ navigation }) {
             console.log("Access Token:", accessToken);
             console.log("Refresh Token:", refreshToken);
 
-            // 🔥 TOKEN 저장
             await saveAccessToken(accessToken);
             await saveRefreshToken(refreshToken);
 
             console.log("토큰 저장 완료");
 
-            // 🔥 저장된 AccessToken 사용해서 프로필 요청
             const storedAccess = await loadAccessToken();
 
             const res = await axios.get(`${BACKEND_URL}/profile`, {
