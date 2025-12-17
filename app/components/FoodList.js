@@ -136,7 +136,7 @@ export default function FoodList({ recFoodList }) {
                 ]}
             >
                 <Text style={styles.saveBtnText}>
-                    식단으로 저장하기
+                    선택하기
                 </Text>
             </Pressable>
         </View>
