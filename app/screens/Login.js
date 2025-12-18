@@ -1,117 +1,136 @@
-// GoogleLoginScreen.js
-
-import React, { useEffect, useState } from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
-import * as WebBrowser from "expo-web-browser";
-import * as Linking from "expo-linking";
-import axios from 'axios';
-import { loadAccessToken, saveAccessToken, saveRefreshToken } from '../../tokenStorage';
-import readBlob from './../../node_modules/axios/lib/helpers/readBlob';
-
-WebBrowser.maybeCompleteAuthSession();
-
-// 백엔드 주소
-const BACKEND_URL = "https://inha-dewbob.p-e.kr/auth";
-
-// 앱이 돌아올 redirect URI
-// const redirectUri = Linking.createURL("auth/callback");  // Inhadewbob-FE://auth/callback
-// console.log("Redirect URI:", redirectUri);
-const redirectUri = "https://inha-dewbob.p-e.kr/auth/login/google/callback"
-
-function extractTokens(response) {
-    return {
-        accessToken: response.access_token,
-        refreshToken: response.refresh_token
-    };
-}
-
+// LoginScreen.js
+import React, { useState } from 'react';
+import {
+    Text,
+    TextInput,
+    View,
+    Pressable,
+    StyleSheet,
+} from 'react-native';
+import { colors } from '../constants/colors';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Login({ navigation }) {
-    const [userInfo, setUserInfo] = useState(null);
-    const [ART, setART] = useState([]); // access, refresh token 저장용
+    const [email, setEmail] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [showPwd, setShowPwd] = useState(false);
 
-
-    const saveToken = async () => {
-        try {
-            console.log("saveToken raw ART:", ART);
-
-            const parsed = JSON.parse(ART);
-            console.log("parsed:", parsed);
-
-            const { accessToken, refreshToken } = extractTokens(parsed);
-
-            console.log("Access Token:", accessToken);
-            console.log("Refresh Token:", refreshToken);
-
-            await saveAccessToken(accessToken);
-            await saveRefreshToken(refreshToken);
-
-            console.log("토큰 저장 완료");
-
-            const storedAccess = await loadAccessToken();
-
-            const res = await axios.get(`${BACKEND_URL}/profile`, {
-                headers: {
-                    Authorization: `Bearer ${storedAccess}`,
-                },
-            });
-
-            console.log("User Profile:", res.data);
-            setUserInfo(res.data);
-
-        } catch (err) {
-            console.error("saveToken ERROR:", err);
-        }
-    };
-
-
-    const handleGoogleLogin = async () => {
-        try {
-            const { data: googleAuthUrl } = await axios.get(
-                `${BACKEND_URL}/login/google`
-            );
-
-            console.log("Google Auth URL:", googleAuthUrl);
-
-            const result = await WebBrowser.openAuthSessionAsync(
-                googleAuthUrl
-            );
-
-            console.log("Browser Result:", result);
-
-            if (result.type === "success") {
-                console.log("🎉 정상적으로 앱으로 돌아옴");
-            } else if (result.type === "cancel") {
-                console.log("❌ 사용자가 X 버튼으로 창을 닫음");
-            } else {
-                console.log("기타 상태:", result.type);
-            }
-
-        } catch (error) {
-            console.error("Google Login Error:", error);
-        }
+    const handleLogin = () => {
+        console.log(email, pwd);
+        // navigation.navigate('Home');
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Button title="구글 로그인" onPress={handleGoogleLogin} />
-            <Button title="토큰 저장" onPress={saveToken}></Button>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <View style={styles.container}>
+                <Text style={styles.title}>로그인</Text>
 
-            <Button title="home" onPress={() => { navigation.navigate("Main") }}></Button>
-
-            <TextInput
-                style={{ backgroundColor: "green" }}
-                onChangeText={(txt) => {
-                    console.log(txt);
-                    setART(txt);
-                }}
-            />
-            {userInfo && (
-                <View style={{ marginTop: 20 }}>
-                    <Text>이메일: {userInfo.email}</Text>
-                    <Text>닉네임: {userInfo.nickname}</Text>
+                {/* 이메일 */}
+                <View style={styles.inputBox}>
+                    <Text style={styles.label}>이메일</Text>
+                    <TextInput
+                        value={email}
+                        onChangeText={setEmail}
+                        placeholder="이메일을 입력하세요"
+                        placeholderTextColor="gray"
+                        style={styles.input}
+                    />
                 </View>
-            )}
-        </View>
+
+                {/* 비밀번호 */}
+                <View style={styles.inputBox}>
+                    <Text style={styles.label}>비밀번호</Text>
+
+                    <View style={styles.passwordWrapper}>
+                        <TextInput
+                            secureTextEntry={!showPwd}
+                            value={pwd}
+                            onChangeText={setPwd}
+                            placeholder="비밀번호를 입력하세요"
+                            placeholderTextColor="gray"
+                            style={[styles.input, { paddingRight: 50 }]}
+                        />
+
+                        <Pressable
+                            onPress={() => setShowPwd(prev => !prev)}
+                            style={styles.eyeButton}
+                        >
+                            <Text style={styles.eyeText}>
+                                {showPwd ? 'hide' : 'show'}
+                            </Text>
+                        </Pressable>
+                    </View>
+                </View>
+
+                <Pressable style={styles.button} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>로그인</Text>
+                </Pressable>
+
+                <Pressable
+                    onPress={() => navigation.navigate('Signup')}
+                    style={{ marginTop: 16 }}
+                >
+                    <Text style={{ color: colors.primary, textAlign: 'center' }}>
+                        회원가입
+                    </Text>
+                </Pressable>
+            </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        paddingHorizontal: 24,
+        marginTop: 60,
+        backgroundColor: '#fff',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: '700',
+        textAlign: 'center',
+        marginBottom: 32,
+    },
+    inputBox: {
+        marginBottom: 20,
+    },
+    label: {
+        marginBottom: 6,
+        fontSize: 14,
+        color: '#555',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        padding: 12,
+        fontSize: 16,
+    },
+    button: {
+        marginTop: 12,
+        backgroundColor: colors.primary,
+        paddingVertical: 14,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    passwordWrapper: {
+        position: 'relative',
+        justifyContent: 'center',
+    },
+    eyeButton: {
+        position: 'absolute',
+        right: 12,
+        height: '100%',
+        justifyContent: 'center',
+    },
+    eyeText: {
+        fontSize: 15,
+        color: colors.primary,
+    },
+});
