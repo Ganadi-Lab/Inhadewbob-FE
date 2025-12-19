@@ -318,7 +318,7 @@ export default function Home({ navigation, setHomeType }) {
                         {/*</View>*/}
                     </View>
 
-                    <Button
+                    {/* <Button
                         title="로그인 페이지로 이동"
                         onPress={() => navigation.getParent().navigate("Login")}
                     />
@@ -329,7 +329,7 @@ export default function Home({ navigation, setHomeType }) {
                     <Button
                         title="온보딩"
                         onPress={() => navigation.getParent().navigate("OnboardingPage")}
-                    />
+                    /> */}
                 </ScrollView>
             </SafeAreaView>
         </SafeAreaProvider >
