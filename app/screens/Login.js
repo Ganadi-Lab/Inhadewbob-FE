@@ -21,40 +21,47 @@ export default function Login({ navigation }) {
 
     const [ART, setART] = useState([]); // access, refresh token 저장용
 
-    const saveToken = async () => {
+
+    const saveToken = async (tokenResponse) => {
         try {
-            console.log("saveToken raw ART:", ART);
+            console.log("saveToken raw:", tokenResponse);
 
-            const parsed = JSON.parse(ART);
+            const { accessToken, refreshToken } = tokenResponse;
+            console.log(accessToken, refreshToken);
 
-            const { accessToken, refreshToken } = extractTokens(parsed);
-
-            console.log("Access Token:", accessToken);
-            console.log("Refresh Token:", refreshToken);
+            if (!accessToken || !refreshToken) {
+                Alert.alert("로그인 실패", "토큰이 없습니다.");
+                return;
+            }
 
             await saveAccessToken(accessToken);
             await saveRefreshToken(refreshToken);
 
-            if (accessToken) {
-                navigation.navigate('Home');
-                return;
-            }
-            else {
-                Alert.alert("로그인 실패");
-            }
+            navigation.navigate("Main");
         } catch (err) {
             console.error("saveToken ERROR:", err);
         }
     };
 
-    const handleLogin = () => {
+
+    const handleLogin = async () => {
         console.log(email, pwd);
 
-        const temp = login(email, pwd);
-        setART(temp);
+        const temp = await login(email, pwd);
 
-        saveToken();
+        // ❗ 로그인 실패 시
+        if (!temp) {
+            Alert.alert("로그인 실패", "이메일 또는 비밀번호를 확인하세요.");
+            return;
+        }
+        console.log('temp');
+        console.log(temp);
+
+        // 성공한 경우만 실행
+        setART(temp);
+        await saveToken(temp);
     };
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -142,6 +149,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         fontSize: 16,
+        color: "black",
     },
     button: {
         marginTop: 12,
