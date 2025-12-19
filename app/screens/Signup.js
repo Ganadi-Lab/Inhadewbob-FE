@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { colors } from '../constants/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { signup } from '../api/auth';
 
 export default function Signup({ navigation }) {
     const [nickname, setNickname] = useState('');
@@ -20,7 +21,8 @@ export default function Signup({ navigation }) {
 
     const handleSignup = () => {
         console.log(nickname, email, pwd);
-        // navigation.navigate('Login');
+        signup(email, pwd, nickname);
+        navigation.navigate('Login');
     };
 
     return (
