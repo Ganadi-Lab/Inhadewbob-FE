@@ -2,8 +2,7 @@ import { Button, Image, InputAccessoryView, Platform, Pressable, StyleSheet, Tex
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useEffect, useState } from "react";
 import { colors } from '../constants/colors';
-import { loadAccessToken } from '../../tokenStorage';
-import axios from 'axios';
+import { patchProfile } from '../api/profile';
 
 export default function InitialSetting({ navigation }) {
     console.log("InitialSetting Screen Loaded");
@@ -18,32 +17,9 @@ export default function InitialSetting({ navigation }) {
     }, [weeklyMealBudget, weeklyDiningOutCount]);
 
     const updateProfile = async () => {
-        try {
-            // 저장된 AccessToken 불러오기
-            const accessToken = await loadAccessToken();
-            console.log("Loaded Access Token:", accessToken);
-
-            // PATCH 요청
-            const res = await axios.patch(
-                `https://inha-dewbob.p-e.kr/auth/profile`,
-                {
-                    weeklyBudget: parseInt(weeklyMealBudget, 10),
-                    eatoutCount: parseInt(weeklyDiningOutCount, 10)
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                }
-            );
-
-
-            console.log("Profile updated:", res.data);
-            navigation.navigate("Main");
-        } catch (error) {
-            console.error("Profile update error:", error.response ? error.response.data : error.message);
-            throw error;
-        }
+        const temp = await patchProfile(weeklyMealBudget, weeklyDiningOutCount);
+        console.log("Profile updated:", temp.data);
+        navigation.navigate("Main");
     };
 
     return (
