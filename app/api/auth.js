@@ -1,6 +1,55 @@
-import axios from "axios";
-import { loadAccessToken } from "../../tokenStorage";
+import { loadAccessToken, loadRefreshToken } from "../../tokenStorage";
 import api from "./api";
+
+
+// 로그인
+export const login = async (email, password) => {	
+	try {
+		const res = await api.post(`/auth/login`, {
+			email,
+			password
+		});
+		console.log("login:", res.data);
+
+		return res.data;
+
+	} catch (e) {
+		console.error("login fetch error:", e);
+	}
+};
+
+// 회원가입
+export const signup = async (email, password, nickname) => {	
+	try {
+		const res = await api.post(`/auth/signup`, {
+			email,
+			password,
+			nickname
+		});
+		console.log("signup:", res.data);
+
+		return res.data;
+
+	} catch (e) {
+		console.error("signup fetch error:", e);
+	}
+};
+
+// 로그아웃
+export const logout = async (email, password, nickname) => {	
+	const refreshT = loadRefreshToken();
+	try {
+		const res = await api.post(`/auth/logout`, {
+			refresh_token: refreshT
+		});
+		console.log("logout:", res.data);
+
+		return res.data;
+
+	} catch (e) {
+		console.error("logout fetch error:", e);
+	}
+};
 
 
 // 소비 현황 수정
