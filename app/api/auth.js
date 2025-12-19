@@ -44,7 +44,7 @@ export const logout = async () => {
 		const res = await axios.post(`https://inha-dewbob.p-e.kr/auth/logout`, {
 			refresh_token: refreshT
 		});
-		console.log("logout:", res.data);
+		console.log("logout 성공");
 
 		return res.data;
 
