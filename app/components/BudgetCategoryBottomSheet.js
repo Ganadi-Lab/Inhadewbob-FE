@@ -49,6 +49,7 @@ export default function BudgetCategoryBottomSheet({
                     <TextInput
                         keyboardType="number-pad"
                         placeholder={`가격을 입력하세요. (추천 예산: ${formatPrice3(recBudget)})`}
+                        placeholderTextColor="gray"
                         defaultValue={(selectedBudget && selectedBudget != 0) ? selectedBudget : ""}
                         style={styles.input}
                         onChangeText={text => {
