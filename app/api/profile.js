@@ -14,14 +14,16 @@ export const getProfile = async () => {
     }
 }
 
-export const patchProfile = async ({weeklyBudget, eatoutCount}) => {
+export const patchProfile = async (weeklyMealBudget, weeklyDiningOutCountt) => {
+    
+    console.log(weeklyMealBudget, weeklyDiningOutCountt);
     try{
         const payload = {
-            weeklyBudget: Number(weeklyBudget),
-            eatoutCount: Number(eatoutCount),
+            weeklyBudget: Number(weeklyMealBudget),
+            eatoutCount: Number(weeklyDiningOutCountt),
         };
 
-        const res = await api.patch("/auth/profile", payload);
+        const res = await api.patch("/auth2/profile", payload);
         console.log("patchProfile 수정 성공", res.data);
         return res.data;
     } catch(e) {
