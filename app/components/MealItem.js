@@ -1,64 +1,93 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable, Alert } from "react-native";
 import { formatPrice3 } from './../utils/FormatPrice3';
 import { colors } from "../constants/colors";
 import { formatDateTime2 } from "../utils/FormatDateTime2";
-
+import { deleteDiet } from "../api/diets";
 
 export default function MealItem({ item }) {
+
+    const handleDelete = () => {
+        Alert.alert(
+            "삭제 확인",
+            "이 식단 기록을 삭제하시겠어요?",
+            [
+                {
+                    text: "취소",
+                    style: "cancel",
+                },
+                {
+                    text: "삭제",
+                    style: "destructive",
+                    onPress: async () => {
+                        try {
+                            await deleteDiet(item.id);
+                        } catch (e) {
+                            Alert.alert("오류", "삭제 중 문제가 발생했어요.");
+                            console.error("deleteDiet error:", e);
+                        }
+                    },
+                },
+            ],
+            { cancelable: true }
+        );
+    };
+
     return (
         <View style={styles.outerContainer}>
             <View style={[styles.container, styles.box]}>
+                {/* ❌ 삭제 버튼 */}
+                <Pressable
+                    hitSlop={10}
+                    style={styles.closeButton}
+                    onPress={handleDelete}
+                >
+                    <Image
+                        source={require('../../assets/close.png')}
+                        style={styles.closeIcon}
+                        resizeMode="contain"
+                    />
+                </Pressable>
+
+                {/* 이미지 */}
                 <Image
                     source={require('../../assets/TempImg.png')}
                     style={styles.Img}
                     resizeMode="contain"
                 />
-                <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginLeft: 15 }}>
-                    <View style={{ justifyContent: "center" }}>
-                        {/* 날짜 시간 */}
+
+                {/* 내용 */}
+                <View style={styles.contentWrapper}>
+                    <View>
                         <Text style={styles.dateText}>
                             {formatDateTime2(item.createdAt)}
                         </Text>
 
-                        {/* 메뉴명 (강조) */}
                         <Text style={styles.menuText}>
                             {item.menuName}
                         </Text>
 
-                        {/* 가게명 */}
                         <Text style={styles.storeText}>
                             {item.restaurantName}
                         </Text>
                     </View>
 
-
                     <Text style={styles.priceText}>
                         {formatPrice3(item.price)}
                     </Text>
-
                 </View>
             </View>
         </View>
     );
 }
 
-
 const styles = StyleSheet.create({
     outerContainer: {
         width: "100%",
         paddingVertical: 10,
     },
-    Img: {
-        height: 60,
-        width: 60,
-        borderRadius: 12,
-    },
     container: {
-        width: "100%",
         flexDirection: "row",
         alignItems: "center",
-        borderRadius: 10,
-        padding: 8,
     },
     box: {
         width: "100%",
@@ -71,6 +100,19 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 4, height: 4 },
         shadowRadius: 7,
         elevation: 7,
+        position: 'relative',
+    },
+    Img: {
+        height: 60,
+        width: 60,
+        borderRadius: 12,
+    },
+    contentWrapper: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginLeft: 15,
     },
     dateText: {
         fontSize: 12,
@@ -91,5 +133,16 @@ const styles = StyleSheet.create({
         color: colors.primary,
         fontWeight: "700",
         fontSize: 17,
+    },
+    closeButton: {
+        position: 'absolute',
+        top: 14,
+        right: 14,
+        zIndex: 10,
+    },
+    closeIcon: {
+        width: 13,
+        height: 13,
+        tintColor: '#9CA3AF',
     },
 });
