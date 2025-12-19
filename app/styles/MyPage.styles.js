@@ -2,74 +2,144 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  /* 전체 화면 */
-  container: {
-    flex: 1,
-    padding: 20
-  },
+    /* 전체 화면 */
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
 
-  /* 개인정보 카드 */
-  profileBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 20
-  },
+    /* 스크롤 영역 */
+    scrollContent: {
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 40,
+    },
 
-  /*사용자 사진*/
-  avatar: {
-    width: 60,
-    height: 60
-  },
+    /* =========================
+        공통 박스 스타일
+    ========================== */
+    box: {
+        width: '100%',
+        backgroundColor: 'white',
+        borderRadius: 20,
+        paddingVertical: 20,
+        paddingHorizontal: 24,
 
-  /* 사용자 이름*/
-  userName: {
-    fontWeight: '700'
-  },
+        shadowColor: '#000',
+        shadowOpacity: 0.12,
+        shadowOffset: { width: 4, height: 4 },
+        shadowRadius: 7,
+        elevation: 7,
+    },
 
-  /*사용자 메일*/
-  userEmail: {
-    color: '#777'
-  },
+    boxTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        marginBottom: 16,
+        color: '#111827',
+    },
 
-  settingText: {
-    fontWeight: '700'
-  },
+    /* =========================
+        프로필 영역
+    ========================== */
+    profileBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
 
-  /* 설정 카드 전체 */
-  settingCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 20
-  },
+    avatarWrapper: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        marginRight: 14,
+        overflow: 'hidden',
+    },
 
-  settingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
+    avatar: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 30,
+    },
 
-  /* 입력 박스*/
-  inlineBox: {
-    width: 150,
-    height: 50,
-    borderRadius: 20,
-    borderWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15
-  },
+    userName: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#5A8EF6',
+        marginBottom: 6,
+    },
 
-  TextInput: {
-    flex: 1,
-    textAlign: 'center'
-  },
+    userEmail: {
+        fontSize: 12,
+        color: '#6B7280',
+    },
 
-  /* 섹션 구분선 */
-  div: {
-    height: 1,
-    backgroundColor: '#E5E5EA',
-  }
+    /* =========================
+        섹션 제목
+    ========================== */
+    settingText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#6B7280',
+        marginBottom: 12,
+    },
+
+    /* =========================
+        설정 Row
+    ========================== */
+    settingRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 14,
+    },
+
+    text: {
+        fontSize: 15,
+        color: '#111827',
+    },
+
+    /* =========================
+        입력 박스
+    ========================== */
+    inlineBox: {
+        width: 120,
+        height: 36,
+        borderRadius: 18,
+        borderWidth: 1,
+        borderColor: '#E5E7EB',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    textInput: {
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 14,
+        paddingVertical: 0,
+    },
+
+    /* =========================
+        구분선
+    ========================== */
+    line: {
+        borderBottomColor: '#E5E7EB',
+        borderBottomWidth: 1,
+        marginVertical: 6,
+    },
+
+    /* =========================
+        사용자 메뉴
+    ========================== */
+    userRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 16,
+    },
+
+    arrowRight: {
+        width: 14,
+        height: 14,
+        tintColor: '#9CA3AF',
+    },
 });
