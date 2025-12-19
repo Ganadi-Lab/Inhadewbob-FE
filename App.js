@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { navigationRef } from './app/navigation/RootNavigation';
 
 import Login from "./app/screens/Login";
 import BottomTab from "./app/components/BottomTab";
@@ -38,7 +39,7 @@ export default function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <SafeAreaProvider>
-                <NavigationContainer>
+                <NavigationContainer ref={navigationRef}>
                     <Stack.Navigator
                         screenOptions={{ headerShown: false }}
                         initialRouteName="Launch"
