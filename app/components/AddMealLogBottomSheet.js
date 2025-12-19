@@ -162,6 +162,7 @@ export default function AddMealLogBottomSheet({onSuccess}) {
                         <Text style={styles.subTitle}>가게 이름</Text>
                         <TextInput
                             placeholder="가게 이름을 입력하세요"
+                            placeholderTextColor="gray"
                             defaultValue={(store && store != 0) ? store : ""}
                             style={styles.input}
                             onChangeText={text => {
@@ -175,6 +176,7 @@ export default function AddMealLogBottomSheet({onSuccess}) {
                         <Text style={styles.subTitle}>메뉴 이름</Text>
                         <TextInput
                             placeholder="메뉴 이름"
+                            placeholderTextColor="gray"
                             defaultValue={(menu && menu != 0) ? menu : ""}
                             style={styles.input}
                             onChangeText={text => {
@@ -189,6 +191,7 @@ export default function AddMealLogBottomSheet({onSuccess}) {
 
                         <TextInput
                             keyboardType="number-pad"
+                            placeholderTextColor="gray"
                             placeholder="가격을 입력하세요. (예: 8000)"
                             defaultValue={(price && price != 0) ? price : ""}
                             style={styles.input}
