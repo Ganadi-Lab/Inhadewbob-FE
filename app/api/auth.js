@@ -1,13 +1,14 @@
+import axios from "axios";
 import { loadAccessToken, loadRefreshToken } from "../../tokenStorage";
 import api from "./api";
 
 
 // 로그인
-export const login = async (email, password) => {	
+export const login = async (email, pwd) => {
 	try {
-		const res = await api.post(`/auth/login`, {
+		const res = await axios.post(`https://inha-dewbob.p-e.kr/auth/login`, {
 			email,
-			password
+			password: pwd
 		});
 		console.log("login:", res.data);
 
@@ -21,7 +22,7 @@ export const login = async (email, password) => {
 // 회원가입
 export const signup = async (email, password, nickname) => {	
 	try {
-		const res = await api.post(`/auth/signup`, {
+		const res = await axios.post(`https://inha-dewbob.p-e.kr/auth/signup`, {
 			email,
 			password,
 			nickname
@@ -36,10 +37,11 @@ export const signup = async (email, password, nickname) => {
 };
 
 // 로그아웃
-export const logout = async (email, password, nickname) => {	
+export const logout = async () => {	
 	const refreshT = loadRefreshToken();
+
 	try {
-		const res = await api.post(`/auth/logout`, {
+		const res = await axios.post(`https://inha-dewbob.p-e.kr/auth/logout`, {
 			refresh_token: refreshT
 		});
 		console.log("logout:", res.data);
@@ -55,6 +57,7 @@ export const logout = async (email, password, nickname) => {
 // 소비 현황 수정
 export const getProfile = async () => {
 	const loadAccessTokened = await loadAccessToken();
+	
 	if(loadAccessTokened == null) {	return null; }	
 	
 	try {
