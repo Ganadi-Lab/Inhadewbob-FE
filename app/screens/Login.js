@@ -6,18 +6,54 @@ import {
     View,
     Pressable,
     StyleSheet,
+    Alert,
 } from 'react-native';
 import { colors } from '../constants/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { saveAccessToken, saveRefreshToken } from '../../tokenStorage';
+import { login } from '../api/auth';
+
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [showPwd, setShowPwd] = useState(false);
 
+    const [ART, setART] = useState([]); // access, refresh token 저장용
+
+    const saveToken = async () => {
+        try {
+            console.log("saveToken raw ART:", ART);
+
+            const parsed = JSON.parse(ART);
+
+            const { accessToken, refreshToken } = extractTokens(parsed);
+
+            console.log("Access Token:", accessToken);
+            console.log("Refresh Token:", refreshToken);
+
+            await saveAccessToken(accessToken);
+            await saveRefreshToken(refreshToken);
+
+            if (accessToken) {
+                navigation.navigate('Home');
+                return;
+            }
+            else {
+                Alert.alert("로그인 실패");
+            }
+        } catch (err) {
+            console.error("saveToken ERROR:", err);
+        }
+    };
+
     const handleLogin = () => {
         console.log(email, pwd);
-        // navigation.navigate('Home');
+
+        const temp = login(email, pwd);
+        setART(temp);
+
+        saveToken();
     };
 
     return (
